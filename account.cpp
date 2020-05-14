@@ -3,8 +3,17 @@
 
 Account::Account(const string& _person, const string& _address, const string& _passport, int _bik, long long _id) : person{ _person }, address{ _address }, passport{ _passport }, income{ 0 }, expenditure{ 0 }, status{ STATE::OK }
 {
-	if (_bik <= 0 || _id <= 0)
-		throw invalid_argument("BIK and id must be greater than 0");
+	if (person.empty())
+		throw invalid_argument("\"person\" must not be empty");
+
+	if (passport.empty())
+		throw invalid_argument("Passport must not be empty");
+
+	if (_bik <= 0)
+		throw invalid_argument("BIK must be greater than 0");
+
+	if (_id <= 0)
+		throw invalid_argument("Id must be greater than 0");
 
 	bik = _bik;
 	id = _id;
@@ -12,20 +21,26 @@ Account::Account(const string& _person, const string& _address, const string& _p
 
 void Account::setPersonName(const string& new_name)
 {
+	if (new_name.empty())
+		throw invalid_argument("New name must not be empty");
+
 	person = new_name;
 }
 
-const string Account::getPersonName() const
+string Account::getPersonName() const
 {
 	return person;
 }
 
 void Account::setPassportData(const string& new_passport)
 {
+	if (new_passport.empty())
+		throw invalid_argument("Passport must not be empty");
+
 	passport = new_passport;
 }
 
-const string Account::getPassportData() const
+string Account::getPassportData() const
 {
 	return passport;
 }
@@ -35,32 +50,32 @@ void Account::setAddress(const string& new_address)
 	address = new_address;
 }
 
-const string Account::getAddress() const
+string Account::getAddress() const
 {
 	return address;
 }
 
-const unsigned int Account::getStatus() const
+unsigned int Account::getStatus() const
 {
 	return status;
 }
 
-const unsigned long long Account::getIncome() const
+unsigned long long Account::getIncome() const
 {
 	return income;
 }
 
-const unsigned long long Account::getExpenditure() const
+unsigned long long Account::getExpenditure() const
 {
 	return expenditure;
 }
 
-const unsigned int Account::getBIK() const
+unsigned int Account::getBIK() const
 {
 	return bik;
 }
 
-const unsigned long long Account::getId() const
+unsigned long long Account::getId() const
 {
 	return id;
 }
@@ -96,7 +111,7 @@ bool Account::withdrawal(long long credit)
 	return true;
 }
 
-const unsigned long long Account::getBalance() const
+unsigned long long Account::getBalance() const
 {
 	return income - expenditure;
 }

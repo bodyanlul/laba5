@@ -42,24 +42,24 @@ int main()
 
 	cout << "Передача в класс отрицательный БИК и номер счета" << endl;
 	try {
-		auto wrong = Account{ name, address, passport, -5, -9 };
+		Account wrong_account = Account{ name, address, passport, -5, -9 };
 	}
-	catch (const exception& e) {
-		cout << "Искоючение: " << e.what() << endl;
+	catch (const invalid_argument& e) {
+		cout << "Некорректный аргумент: " << e.what() << endl;
 	}
 
-	auto test = Account{ name, address, passport, bik, id };
-	output(test);
+	Account test_account = Account{ name, address, passport, bik, id };
+	output(test_account);
 	cout << endl;
 
-	test.deposit(10000);
-	test.withdrawal(10);
-	test.withdrawal(99999999);
+	test_account.deposit(10000);
+	test_account.withdrawal(10);
+	test_account.withdrawal(99999999);
 
-	test.setPersonName("Петров Денис Валерьевич");
-	test.setAddress("Самара");
-	test.setPassportData("10 01 1337");
-	output(test);
+	test_account.setPersonName("Петров Денис Валерьевич");
+	test_account.setAddress("Самара");
+	test_account.setPassportData("10 01 1337");
+	output(test_account);
 
 	return 0;
 }
